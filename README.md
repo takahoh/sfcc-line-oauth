@@ -76,7 +76,7 @@ Once you have established your `Client ID` and `Client Secret Value`, update the
 ![LINE OAuth Provider](docs/images/line-oauth-provider.png)
 
 
-### Update Sevice Credentials
+#### Update Sevice Credentials
 For verify idToken, you need specify Client ID to service credential.
 
 1. Go to **Administration** > **Operations** > **Services** > **Service Credentials** > **line.verifyIdToken.cred - Details**
