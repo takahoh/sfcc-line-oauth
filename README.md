@@ -12,9 +12,10 @@ This cartridge is maintained by the **Salesforce Community**. Salesforce Commerc
 
 This cartridge is a proof of concept for integrating Microsoft LINE OAuth with Salesforce Commerce Cloud B2C.
 
-Currently, `dw.customer.oauth.OAuthLoginFlowMgr` does not support passing the access token in the header, which LINE's [UserInfo](https://learn.microsoft.com/en-us/line/active-directory/develop/userinfo) endpoint requires.
+Currently, `dw.customer.oauth.OAuthLoginFlowMgr` does not support passing the access token in the header, which LINE's [UserInfo](https://developers.line.biz/en/reference/line-login/#userinfo) endpoint requires.
 Instead of calling `OAuthLoginFlowMgr.finalizeOAuthLogin()`, we will call `OAuthLoginFlowMgr.obtainAccessToken()`,
-and then make a custom HTTP call to the [UserInfo](https://learn.microsoft.com/en-us/line/active-directory/develop/userinfo) endpoint.
+and then make a custom HTTP call to the [UserInfo](https://developers.line.biz/en/reference/line-login/#userinfo) endpoint.
+And also get user email, we need verify idToken, so we make custom HTTP call to the [Verify](https://developers.line.biz/en/reference/line-login/#verify-id-token)
 
 This cartridge also includes an ***optional*** feature to merge external profiles with existing customer accounts. This will ensure if you have existing SFCC shopper accounts, the external profile will be added to the existing account, rather than creating a new customer profile, allowing for order history and profile data to accessed from the same login.
 
@@ -64,8 +65,7 @@ This plugin requires the `app_storefront_base` cartridge.
 #### Update OAuth Client ID and Client Secret
 
 For help setting up your LINE Client ID and Client Secret, please refer to the following documenation:
-1. [Application types for the Microsoft identity platform](https://learn.microsoft.com/en-us/line/active-directory/develop/v2-app-types)
-2. [Quickstart: Register an application](https://learn.microsoft.com/en-us/line/active-directory/develop/quickstart-register-app)
+[Integrating LINE Login with your web app](https://developers.line.biz/en/docs/line-login/integrate-line-login/)
 
 Once you have established your `Client ID` and `Client Secret Value`, update the values in Business Manager:
 1. Go to **Administration** > **Global Preferences** > **OAuth2 Providers** > **LINE**
@@ -74,6 +74,15 @@ Once you have established your `Client ID` and `Client Secret Value`, update the
 4. Click **Apply**
 
 ![LINE OAuth Provider](docs/images/line-oauth-provider.png)
+
+
+### Update Sevice Credentials
+For verify idToken, you need specify Client ID to service credential.
+
+1. Go to **Administration** > **Operations** > **Services** > **Service Credentials** > **line.verifyIdToken.cred - Details**
+2. Update User by Client ID
+3. Click **Apply**
+
 
 #### Update `enableMergeExternalAccounts` Site Preference (optional)
 
@@ -103,4 +112,4 @@ This project is maintained by the **Salesforce Community**. Salesforce Commerce 
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
 
-For feature requests or bugs, please open a [GitHub issue](https://github.com/sandragolden/sfcc-line-oauth/issues).
+For feature requests or bugs, please open a [GitHub issue](https://github.com/takahoh/sfcc-line-oauth/issues).
