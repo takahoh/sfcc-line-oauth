@@ -42,7 +42,11 @@ const LINEConfig = {
                 service.addHeader(headerName, requestHeaders[headerName]);
             });
         }
-
+        if (this.serviceAction === serviceFactory.ACTIONS.VERIFY_ID_TOKEN) {
+            const clientId = service.configuration.credential.user;
+            requestDataContainer.data.client_id = clientId;
+        }
+        
         if (requestDataContainer.data) {
             switch (contentType) {
                 case 'application/json':
@@ -58,7 +62,7 @@ const LINEConfig = {
     },
     parseResponse: function (service, serviceResponse) {
         if (serviceResponse && serviceResponse.statusCode >= 200 && serviceResponse.statusCode < 300) {
-            if (this.serviceAction === serviceFactory.ACTIONS.USER_INFO) {
+            if (this.serviceAction === serviceFactory.ACTIONS.USER_INFO || this.serviceAction === serviceFactory.ACTIONS.VERIFY_ID_TOKEN) {
                 return serviceHelpers.parseJsonResponse(serviceResponse);
             }
             return serviceResponse;
@@ -70,6 +74,10 @@ const LINEConfig = {
 
         if (this.serviceAction === serviceFactory.ACTIONS.USER_INFO) {
             return mockService.getUserInfoResponse();
+        }
+
+        if (this.serviceAction === serviceFactory.ACTIONS.VERIFY_ID_TOKEN) {
+            return mockService.getVerifyIdTokenResponse();
         }
 
         return {

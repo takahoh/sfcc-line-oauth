@@ -36,6 +36,27 @@ const LINEModel = ({
             Logger.error(e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
         }
         return result;
+    },
+    verifyIdToken: function (idToken) {
+        var result = {
+            success: false,
+            responseObject: null
+        };
+
+        try {
+            if (!idToken) return result;
+            const requestContainer = serviceFactory.buildVerifyIdTokenRequestContainer({ idToken: idToken });
+            const lineService = serviceMgr.getService(serviceFactory.SERVICE_IDS.VERIFY_ID_TOKEN);
+            var serviceResult = lineService.call(requestContainer);
+            var serviceObject = serviceResult ? serviceResult.getObject() : null;
+            if (serviceResult.isOk() && serviceObject && serviceObject.responseObject) {
+                result.success = true;
+                result.responseObject = serviceObject.responseObject;
+            }
+        } catch (e) {
+            Logger.error(e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
+        }
+        return result;
     }
 });
 

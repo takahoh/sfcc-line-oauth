@@ -3,10 +3,32 @@
         "success": {
             "sub": "AAAAAAAAAAAAAAAAAAAAAJpXc5M_vABsvDeEuSgq1Vo",
             "name": "Jane Doe",
-            "given_name": "Jane",
-            "family_name": "Doe",
-            "email": "jane.doe@gmail.com",
             "picture": "https://graph.microsoft.com/v1.0/me/photo/$value"
+        },
+        "error": {
+            "error": {
+                "code": "InvalidAuthenticationToken",
+                "message": "CompactToken validation failed with reason code: 80049228.",
+                "innerError": {
+                    "date": "2022-12-01T21:18:39",
+                    "request-id": "f22190cd-0795-47bf-99e2-0551c99a4af1",
+                    "client-request-id": "f22190cd-0795-47bf-99e2-0551c99a4af1"
+                }
+            }
+        }
+    },
+    "verifyIdToken": {
+        "success": {
+            "iss": "https://access.line.me",
+            "sub": "AAAAAAAAAAAAAAAAAAAAAJpXc5M_vABsvDeEuSgq1Vo",
+            "aud": "12345678",
+            "exp": 1234567890,
+            "iat": 1234567890,
+            "amr": [
+                "linesso"
+            ],
+            "name": "taro",
+            "email": "taro@salesforce.com"
         },
         "error": {
             "error": {

@@ -28,6 +28,20 @@ const LINEMockService = {
             statusMessage: 'ERROR',
             errorText: setMockText(mockedResponses.lineUserInfo.error)
         };
+    },
+    getVerifyIdTokenResponse: function () {
+        if (MOCK_SUCCESS) {
+            return {
+                statusCode: 200,
+                statusMessage: 'OK',
+                text: setMockText(mockedResponses.verifyIdToken.success)
+            };
+        }
+        return {
+            statusCode: 401,
+            statusMessage: 'ERROR',
+            errorText: setMockText(mockedResponses.verifyIdToken.error)
+        };
     }
 };
 

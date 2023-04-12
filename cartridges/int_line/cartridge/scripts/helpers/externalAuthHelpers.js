@@ -83,8 +83,7 @@ const createExternalCustomer = (userId, providerId, profileInfo) => {
             if (customerProfile && Object.keys(profileInfo).length) {
                 Transaction.wrap(function () {
                     if (email) customerProfile.setEmail(email);
-                    if (profileInfo.firstName) customerProfile.setFirstName(profileInfo.firstName);
-                    if (profileInfo.lastName) customerProfile.setLastName(profileInfo.lastName);
+                    if (profileInfo.name) customerProfile.setFirstName(profileInfo.name);
                 });
             }
         });

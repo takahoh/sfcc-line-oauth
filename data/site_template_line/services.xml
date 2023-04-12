@@ -6,6 +6,12 @@
         <password/>
     </service-credential>
 
+    <service-credential service-credential-id="line.verifyIdToken.cred">
+        <url>https://api.line.me/oauth2/v2.1/verify</url>
+        <user-id/>
+        <password/>
+    </service-credential>
+
     <service-profile service-profile-id="line.profile">
         <timeout-millis>5000</timeout-millis>
         <rate-limit-enabled>false</rate-limit-enabled>
@@ -25,6 +31,17 @@
         <mock-mode-enabled>false</mock-mode-enabled>
         <profile-id>line.profile</profile-id>
         <credential-id>line.userinfo.cred</credential-id>
+    </service>
+
+    <service service-id="line.http.verifyIdToken">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>line-verifyIdToken</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>line.profile</profile-id>
+        <credential-id>line.verifyIdToken.cred</credential-id>
     </service>
 
 </services>

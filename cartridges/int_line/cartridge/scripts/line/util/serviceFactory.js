@@ -2,10 +2,12 @@
 
 const LINEServiceFactory = {
     SERVICE_IDS: {
-        USER_INFO: 'line.http.userinfo'
+        USER_INFO: 'line.http.userinfo',
+        VERIFY_ID_TOKEN: 'line.http.verifyIdToken'
     },
     ACTIONS: {
-        USER_INFO: 'USER_INFO'
+        USER_INFO: 'USER_INFO',
+        VERIFY_ID_TOKEN: 'VERIFY_ID_TOKEN'
     },
 
     /* ***************************************************
@@ -22,6 +24,18 @@ const LINEServiceFactory = {
             action: LINEServiceFactory.ACTIONS.USER_INFO,
             headers: {
                 Authorization: 'Bearer ' + requestParams.accessToken
+            }
+        };
+    },
+    buildVerifyIdTokenRequestContainer: function (requestParams) {
+        return {
+            requestMethod: 'POST',
+            action: LINEServiceFactory.ACTIONS.VERIFY_ID_TOKEN,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            data: {
+                id_token: requestParams.idToken
             }
         };
     }

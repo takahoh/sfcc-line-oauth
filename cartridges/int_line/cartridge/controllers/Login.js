@@ -65,11 +65,17 @@ server.get('OAuthReentryLINE', server.middleware.https, consentTracking.consent,
         return next();
     }
 
+    var idToken = accessTokenResult.IDToken;
+    var verifyIdTokenResponse = LINEModel.verifyIdToken(idToken);
+    if (!verifyIdTokenResponse || !verifyIdTokenResponse.success) {
+        res.render(template, { message: errorMessage });
+        return next();
+    }
+
     const profileInfo = {
         userId: userId,
-        email: externalProfile.email,
-        firstName: externalProfile.given_name,
-        lastName: externalProfile.family_name
+        email: verifyIdTokenResponse.responseObject.email,
+        name: externalProfile.name,
     };
 
     var customerProfile = CustomerMgr.getExternallyAuthenticatedCustomerProfile(oauthProviderId, userId);
