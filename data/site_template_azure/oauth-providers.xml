@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oauth-providers xmlns="http://www.demandware.com/xml/impex/oauthprovider/2013-07-16">
+    <oauth-provider provider-id="LINE">
+        <description>LINE OAuth Provider</description>
+        <client-id/>
+        <client-secret/>
+        <scopes>openid,email,profile</scopes>
+        <authorization-url>https://access.line.me/oauth2/v2.1/authorize</authorization-url>
+        <token-url>https://api.line.me/oauth2/v2.1/token</token-url>
+        <user-info-url>https://api.line.me/oauth2/v2.1/userinfo</user-info-url>
+        <access-token-name>access_token</access-token-name>
+        <redirect-pipeline-node>Login-OAuthReentryLINE</redirect-pipeline-node>
+    </oauth-provider>
+</oauth-providers>
