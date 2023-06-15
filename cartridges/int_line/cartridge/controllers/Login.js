@@ -107,6 +107,8 @@ server.get('OAuthReentryLINE', server.middleware.https, consentTracking.consent,
 
     req.session.privacyCache.clear();
     req.session.privacyCache.set('oauthProviderID', oauthProviderId);
+    req.session.privacyCache.set('accessToken', accessToken);
+    req.session.privacyCache.set('refreshToken', accessTokenResult.refreshToken);
 
     res.redirect(destination);
 

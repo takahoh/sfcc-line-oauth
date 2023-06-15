@@ -3,11 +3,15 @@
 const LINEServiceFactory = {
     SERVICE_IDS: {
         USER_INFO: 'line.http.userinfo',
-        VERIFY_ID_TOKEN: 'line.http.verifyIdToken'
+        VERIFY_ID_TOKEN: 'line.http.verifyIdToken',
+        VERIFY_ACCESS_TOKEN: 'line.http.verifyIdToken',
+        REVOKE: 'line.http.revoke'
     },
     ACTIONS: {
         USER_INFO: 'USER_INFO',
-        VERIFY_ID_TOKEN: 'VERIFY_ID_TOKEN'
+        VERIFY_ID_TOKEN: 'VERIFY_ID_TOKEN',
+        VERIFY_ACCESS_TOKEN: 'VERIFY_ACCESS_TOKEN',
+        REVOKE: 'REVOKE'
     },
 
     /* ***************************************************
@@ -20,7 +24,7 @@ const LINEServiceFactory = {
      */
     buildGetUserInfoRequestContainer: function (requestParams) {
         return {
-            requestMethod: 'POST',
+            requestMethod: 'GET',
             action: LINEServiceFactory.ACTIONS.USER_INFO,
             headers: {
                 Authorization: 'Bearer ' + requestParams.accessToken
@@ -36,6 +40,27 @@ const LINEServiceFactory = {
             },
             data: {
                 id_token: requestParams.idToken
+            }
+        };
+    },
+    buildVerifyAccessTokenRequestContainer: function (requestParams) {
+        return {
+            requestMethod: 'GET',
+            action: LINEServiceFactory.ACTIONS.VERIFY_ACCESS_TOKEN,
+            params: {
+                access_token: requestParams.accessToken
+            }
+        };
+    },
+    buildRevokeRequestContainer: function (requestParams) {
+        return {
+            requestMethod: 'POST',
+            action: LINEServiceFactory.ACTIONS.REVIKE,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            data: {
+                access_token: requestParams.accessToken,
             }
         };
     }

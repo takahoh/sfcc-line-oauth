@@ -57,7 +57,49 @@ const LINEModel = ({
             Logger.error(e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
         }
         return result;
-    }
+    },
+    verifyAccessToken: function (accessToken) {
+        var result = {
+            success: false,
+            responseObject: null
+        };
+
+        try {
+            if (!accessToken) return result;
+            const requestContainer = serviceFactory.buildVerifyAccessTokenRequestContainer({ accessToken: accessToken });
+            const lineService = serviceMgr.getService(serviceFactory.SERVICE_IDS.VERIFY_ACCESS_TOKEN);
+            var serviceResult = lineService.call(requestContainer);
+            var serviceObject = serviceResult ? serviceResult.getObject() : null;
+            if (serviceResult.isOk() && serviceObject && serviceObject.text) {
+                result.success = true;
+                result.responseObject = JSON.parse(serviceObject.text);
+            }
+        } catch (e) {
+            Logger.error(e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
+        }
+        return result;
+    },
+    revokeAccessToken: function (accessToken) {
+        var result = {
+            success: false,
+            responseObject: null
+        };
+
+        try {
+            if (!accessToken) return result;
+            const requestContainer = serviceFactory.buildRevokeRequestContainer({ accessToken: accessToken });
+            const lineService = serviceMgr.getService(serviceFactory.SERVICE_IDS.REVOKE);
+            var serviceResult = lineService.call(requestContainer);
+            var serviceObject = serviceResult ? serviceResult.getObject() : null;
+            if (serviceResult.isOk() && serviceObject && serviceObject.statusMessage) {
+                result.success = true;
+                result.responseObject = serviceObject.statusMessage;
+            }
+        } catch (e) {
+            Logger.error(e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
+        }
+        return result;
+    },
 });
 
 module.exports = LINEModel;

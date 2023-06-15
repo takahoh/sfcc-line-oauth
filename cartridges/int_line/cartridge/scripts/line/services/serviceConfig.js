@@ -43,8 +43,14 @@ const LINEConfig = {
             });
         }
         if (this.serviceAction === serviceFactory.ACTIONS.VERIFY_ID_TOKEN) {
-            const clientId = service.configuration.credential.user;
+            let clientId = service.configuration.credential.user;
             requestDataContainer.data.client_id = clientId;
+        }
+        if (this.serviceAction === serviceFactory.ACTIONS.REVOKE) {
+            let clientId = service.configuration.credential.user;
+            requestDataContainer.data.client_id = clientId;
+            const clientSecret = service.configuration.credential.password;
+            requestDataContainer.data.client_secret = clientSecret
         }
         
         if (requestDataContainer.data) {
